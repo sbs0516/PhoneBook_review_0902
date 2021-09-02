@@ -1,6 +1,17 @@
 package codes;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import codes.datas.UserData;
 
 public class MainDrive {
 	
@@ -28,7 +39,7 @@ public class MainDrive {
 			if(inputNum == 0) {
 				break;
 			} else if(inputNum == 1) {
-				addPhoneNum();
+				addUserInfo();
 			} else if(inputNum == 2) {
 				viewPhoneBook();
 			} else {
@@ -44,11 +55,80 @@ public class MainDrive {
 		}
 		System.out.println("프로그램을 종료합니다.");
 	}
-	static void addPhoneNum() {
+	static void addUserInfo() {
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		System.out.print("이름 : ");
+		String name = scanner.next();
+		
+		System.out.print("전화번호 : ");
+		String phoneNum = scanner.next();
+		
+		System.out.print("출생년도 : ");
+		int birthYear = scanner.nextInt();
+		
+		String content = String.format("%s,%s,%d", name, phoneNum, birthYear);
+		
+		userInfoDataToFile(content);
 		
 	}
+	
 	static void viewPhoneBook() {
 		
+		List<UserData> list = new ArrayList<>();
+		
+		userInfoFileToData(list);
+		
+		for( UserData user : list) {
+			System.out.println(user);
+		}
+		
+	}
+	
+	static void userInfoDataToFile(String content) {
+		
+		File myFile = new File("myPhoneBook02.txt");
+		
+		try {
+			FileWriter fw = new FileWriter(myFile);
+			
+			BufferedWriter bw = new BufferedWriter(fw);
+			
+			bw.append(content);
+			bw.newLine();
+			
+			bw.close();
+			fw.close();			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	static void userInfoFileToData(List<UserData> list) {
+		
+		File myFile = new File("myPhoneBook02.txt");
+		
+		try {
+			FileReader fr = new FileReader(myFile);
+			
+			BufferedReader br = new BufferedReader(fr);
+			
+			String line = br.readLine();
+			
+			if(line == null) {
+				
+			}
+			
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
 	}
 }
 
