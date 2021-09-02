@@ -91,7 +91,7 @@ public class MainDrive {
 		File myFile = new File("myPhoneBook02.txt");
 		
 		try {
-			FileWriter fw = new FileWriter(myFile);
+			FileWriter fw = new FileWriter(myFile, true);
 			
 			BufferedWriter bw = new BufferedWriter(fw);
 			
@@ -115,18 +115,25 @@ public class MainDrive {
 			
 			BufferedReader br = new BufferedReader(fr);
 			
-			String line = br.readLine();
-			
-			if(line == null) {
+			while(true) {
+				
+				String line = br.readLine();
+				
+				if(line == null) {
+					break;
+				}
+				
+				String[] userInfo = line.split(",");
+				
+				list.add(new UserData(userInfo[0], userInfo[1], Integer.parseInt(userInfo[2])));
 				
 			}
 			
-			
 		} catch (FileNotFoundException e) {
-			
+			System.out.println("파일을 찾을 수 없습니다.");
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+			System.out.println("파일의 내용에 문제가 있습니다.");
 			e.printStackTrace();
 		}
 	}

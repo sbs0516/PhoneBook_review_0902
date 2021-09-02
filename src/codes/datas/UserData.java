@@ -1,5 +1,7 @@
 package codes.datas;
 
+import java.util.Calendar;
+
 public class UserData {
 	
 	private String name;
@@ -7,7 +9,16 @@ public class UserData {
 	private int birthYear;
 	
 	
+	public int getAge() {
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		return year - this.birthYear +1 ;
+	}
 	
+	
+	@Override
+	public String toString() {
+		return String.format("%s(%d세) : %s", this.name, this.getAge(), this.phoneNum);
+	}
 	
 	public UserData(String name, String phoneNum, int birthYear) {
 		super();
